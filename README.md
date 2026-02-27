@@ -4,23 +4,25 @@
 
 # PLASMA
 
-An event-sourced runtime where AI agents build applications in real time, through conversation, not configuration.
+**Programmable Layer for Adaptive Synthetic Media & Applications**
 
-The agent writes the application as you talk to it. Every change is a mutation, saved and replayable. The interface isn't designed in advance. It emerges from what you need right now, and evolves as the conversation continues.
+PLASMA defines a new approach to software development where an agent dynamically generates applications based on the state of the conversation with the user and the data it can access. The agent writes the application as you talk to it. Every change is a mutation, saved and replayable. The interface isn't designed in advance. It emerges from what you need right now, and evolves as the conversation continues.
 
-This distribution includes Plasma Viewer, a native macOS menubar app that renders whatever the agent creates. It connects over a localhost-only WebSocket, no browser, no external network. Install once, it sits quietly in your menubar until the agent has something to show.
+PLASMA is a system that lets Claude generate and control fully interactive web applications rendered directly on your macOS desktop, in real time.
 
-Download the compiled app from [Releases](https://github.com/hello-plasma/claude-components/releases).
-
-For full documentation visit **[helloclaude.org](https://helloclaude.org)**.
+For full documentation visit **[helloplasma.org](https://helloplasma.org)**.
 
 ## Components
 
-| Component | Description |
-|-----------|-------------|
-| **[plasma-surface](plasma-surface/)** | Native macOS menubar app (Swift/WKWebView). Renders the UI |
-| **[plasma-connector](plasma-connector/)** | MCP server (Node.js). Bridges Claude to the Surface via WebSocket |
-| **[plasma-plugin](plasma-plugin/)** | Claude Code plugin. Skills and commands that teach Claude how to use PLASMA |
+It is made up of three components that work together:
+
+| Component | What it is | What it does |
+|-----------|-----------|-------------|
+| **[Plasma Surface](plasma-surface/)** | A native macOS menubar app | Renders the HTML/CSS/JS interfaces that Claude creates, and captures your interactions (clicks, inputs, form submissions) |
+| **[Plasma MCPB](plasma-connector/)** | An MCP server bundle (extension) | Opens a bidirectional communication channel between Claude and the Surface app via WebSocket |
+| **[Plasma Plugin](plasma-plugin/)** | A Claude plugin (.plugin file) | Teaches Claude how to use the MCPB tools effectively, includes skills, best practices, and slash commands |
+
+In short: the Plugin provides the brain, the MCPB provides the bridge, and the Surface provides the screen.
 
 ## Installation
 
