@@ -97,18 +97,6 @@ Claude will check the connection to the Surface and confirm everything is workin
 
 Check out the [tutorial](https://helloplasma.org/tutorial) to see what's possible.
 
-## Architecture
-
-```
-┌─────────────────────┐         ┌──────────────────────┐         ┌─────────────────────┐
-│  Claude             │   MCP   │  plasma-connector    │   WS    │  plasma-surface     │
-│  (Code/Desktop/     │◄───────►│  (MCPB, Node.js)     │◄───────►│  (Swift menubar)    │
-│   Cowork)           │  stdio  │  Organism storage    │ :9420   │  Single WKWebView   │
-└─────────────────────┘         └──────────────────────┘         └─────────────────────┘
-                                         │
-                                    ~/.plasma/organisms/
-```
-
 ## License
 
 Apache 2.0. See [LICENSE](plasma-plugin/LICENSE).
