@@ -4,6 +4,8 @@
 
 # PLASMA for Claude
 
+_The application takes shape around you. Software without software._
+
 **PLASMA** (_Programmable Layer for Adaptive Synthetic Media & Applications_) defines a new approach to software development where an agent dynamically generates applications based on the state of the conversation with the user and the data it can access.
 
 The agent writes the application as you talk to it. Not from a template: it generates the actual HTML, CSS, and JavaScript on the fly based on what you need.
@@ -93,9 +95,9 @@ After installing all three components, run this command in a Claude conversation
 
 Claude will check the connection to the Surface and confirm everything is working.
 
-### What can you build?
+### What now?
 
-Check out the [tutorial](https://helloplasma.org/tutorial) to see what's possible.
+The sky is the limit. Imagine Claude pulling data through its connectors and dynamically creating navigation forms, documents, diagrams, slide decks, 2D and 3D visualizations. Every action you take is perceived by Claude and used to reshape the interface in real time, enriching your experience as you go. The application takes shape around you. Software without software.
 
 ## License
 
