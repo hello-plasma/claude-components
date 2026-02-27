@@ -80,7 +80,7 @@ struct AboutView: View {
 
             Spacer().frame(height: 4)
 
-            Text("\u{00A9} 2026 Lorenzo Toscano. Apache License 2.0.")
+            Text("\u{00A9} 2026 Lorenzo Toscano. MIT License.")
                 .font(.system(size: 10))
                 .foregroundColor(.secondary)
         }
