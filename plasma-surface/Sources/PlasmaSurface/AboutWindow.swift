@@ -15,10 +15,10 @@ final class AboutWindow {
 
         let aboutView = AboutView()
         let hostingView = NSHostingView(rootView: aboutView)
-        hostingView.frame = NSRect(x: 0, y: 0, width: 320, height: 340)
+        hostingView.frame = NSRect(x: 0, y: 0, width: 320, height: 360)
 
         let w = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 320, height: 340),
+            contentRect: NSRect(x: 0, y: 0, width: 320, height: 360),
             styleMask: [.titled, .closable],
             backing: .buffered,
             defer: false
@@ -53,32 +53,65 @@ struct AboutView: View {
                 .font(.system(size: 12))
                 .foregroundColor(.secondary)
 
-            Text("Dynamic UI viewer for Claude.\nRenders HTML/CSS/JS interfaces\non your desktop.")
+            Text("Dynamic UI Viewer for Claude")
                 .font(.system(size: 11))
                 .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
-                .lineSpacing(2)
 
             Divider()
                 .padding(.horizontal, 24)
 
-            VStack(spacing: 6) {
-                Link("helloplasma.org", destination: URL(string: "https://helloplasma.org")!)
-                    .font(.system(size: 11))
-                Link("info@helloplasma.org", destination: URL(string: "mailto:info@helloplasma.org")!)
-                    .font(.system(size: 11))
-                Link("GitHub", destination: URL(string: "https://github.com/hello-plasma/claude-components")!)
-                    .font(.system(size: 11))
+            VStack(spacing: 8) {
+                AboutLink(
+                    icon: "globe",
+                    label: "helloplasma.org",
+                    url: URL(string: "https://helloplasma.org")!
+                )
+                AboutLink(
+                    icon: "envelope.fill",
+                    label: "info@helloplasma.org",
+                    url: URL(string: "mailto:info@helloplasma.org")!
+                )
+                AboutLink(
+                    icon: "chevron.left.forwardslash.chevron.right",
+                    label: "GitHub",
+                    url: URL(string: "https://github.com/hello-plasma/claude-components")!
+                )
             }
 
             Spacer().frame(height: 4)
 
-            Text("\u{00A9} 2026 Lorenzo Toscano. All rights reserved.")
+            Text("\u{00A9} 2026 Lorenzo Toscano. Apache License 2.0.")
                 .font(.system(size: 10))
                 .foregroundColor(.secondary)
         }
         .padding(.vertical, 20)
         .padding(.horizontal, 24)
-        .frame(width: 320, height: 340)
+        .frame(width: 320, height: 360)
+    }
+}
+
+/// A clickable link row with SF Symbol icon and pointer cursor.
+struct AboutLink: View {
+    let icon: String
+    let label: String
+    let url: URL
+
+    var body: some View {
+        Link(destination: url) {
+            HStack(spacing: 6) {
+                Image(systemName: icon)
+                    .font(.system(size: 11))
+                    .frame(width: 14)
+                Text(label)
+                    .font(.system(size: 11))
+            }
+        }
+        .onHover { hovering in
+            if hovering {
+                NSCursor.pointingHand.push()
+            } else {
+                NSCursor.pop()
+            }
+        }
     }
 }

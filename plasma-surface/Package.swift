@@ -7,7 +7,8 @@ let package = Package(
     targets: [
         .executableTarget(
             name: "PlasmaSurface",
-            path: "Sources/PlasmaSurface"
+            path: "Sources/PlasmaSurface",
+            exclude: ["Resources"]
         ),
     ]
 )

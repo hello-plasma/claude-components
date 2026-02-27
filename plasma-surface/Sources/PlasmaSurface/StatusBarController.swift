@@ -15,7 +15,8 @@ final class StatusBarController {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
 
         if let button = statusItem.button {
-            button.image = NSImage(systemSymbolName: "bolt.fill", accessibilityDescription: "Plasma Surface")
+            let icon = Self.loadMenubarIcon()
+            button.image = icon
             button.action = #selector(statusBarAction(_:))
             button.target = self
             button.sendAction(on: [.leftMouseUp, .rightMouseUp])
@@ -103,6 +104,33 @@ final class StatusBarController {
 
     @objc private func toggleWindowAction() {
         toggleWindow()
+    }
+
+    /// Load menubar icon from app bundle Resources or SPM Bundle.module.
+    private static func loadMenubarIcon() -> NSImage {
+        // Try app bundle Resources first
+        let bundles = [Bundle.main] + (Bundle.allBundles.filter { $0.bundlePath.contains("PlasmaSurface") })
+        for bundle in bundles {
+            if let url = bundle.url(forResource: "menubar-icon", withExtension: "png"),
+               let img = NSImage(contentsOf: url) {
+                img.isTemplate = true
+                img.size = NSSize(width: 18, height: 18)
+                return img
+            }
+        }
+        // Try relative to executable
+        let execURL = Bundle.main.executableURL?.deletingLastPathComponent()
+        if let execURL {
+            let resourceURL = execURL.deletingLastPathComponent().appendingPathComponent("Resources/menubar-icon.png")
+            if let img = NSImage(contentsOf: resourceURL) {
+                img.isTemplate = true
+                img.size = NSSize(width: 18, height: 18)
+                return img
+            }
+        }
+        // Fallback SF Symbol
+        let fallback = NSImage(systemSymbolName: "bolt.fill", accessibilityDescription: "Plasma Surface")!
+        return fallback
     }
 
     @objc private func aboutAction() {
