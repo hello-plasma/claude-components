@@ -55,7 +55,7 @@ The MCPB (MCP Bundle) is what gives Claude the actual tools to communicate with 
 1. Download `plasma-1.0.0.mcpb` from the [Plasma MCPB releases page](https://github.com/hello-plasma/claude-components/releases/tag/mcpb-v1.0.0).
 2. Open **Claude Desktop**.
 3. Go to **Settings**.
-4. Look for the **MCP / Extensions** section.
+4. Look for the **Drag .MCPB or .DXT files here to install** section.
 5. Drag and drop the `.mcpb` file into the settings window, or use the "Add" button to browse and select it.
 
 Claude Desktop will register the extension and make its tools available.
@@ -70,7 +70,7 @@ The Plugin is a zip file containing skills, commands, and best practices. It tea
 2. Open **Claude Desktop**.
 3. Go to **Settings**.
 4. Look for the **Capabilities** section.
-5. Click on **Skills** / go to **Customize**.
+5. Click on **Skills** / **Go to Customize**.
 6. Click the **+** icon, then select **Upload Skill**.
 7. Drag and drop the `.zip` file into the upload window.
 
