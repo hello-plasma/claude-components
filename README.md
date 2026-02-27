@@ -38,7 +38,7 @@ In short: the Plugin provides the brain, the MCPB provides the bridge, and the S
 
 The Surface is a lightweight menubar application for macOS.
 
-1. Download the latest release from the [Plasma Surface releases page](https://github.com/hello-plasma/claude-components/releases).
+1. Download the latest release from the [Plasma Surface releases page](https://github.com/hello-plasma/claude-components/releases/tag/surface-v1.0.0).
 2. Move the app to your Applications folder.
 3. Launch it. You'll see a small icon appear in your macOS menu bar.
 
@@ -52,7 +52,7 @@ That's it. The Surface is now listening on `ws://localhost:9420` and waiting for
 
 The MCPB (MCP Bundle) is what gives Claude the actual tools to communicate with the Surface. Think of it as a bridge that Claude can talk through.
 
-1. Locate the `plasma-1.0.0.mcpb` file (it comes with the [Plasma distribution](https://github.com/hello-plasma/claude-components/releases)).
+1. Download `plasma-1.0.0.mcpb` from the [Plasma MCPB releases page](https://github.com/hello-plasma/claude-components/releases/tag/mcpb-v1.0.0).
 2. Open **Claude Desktop**.
 3. Go to **Settings**.
 4. Look for the **MCP / Extensions** section.
@@ -66,7 +66,7 @@ Once installed, Claude gets access to tools like `dynamic_ui_render`, `plasma_cr
 
 The Plugin is a zip file containing skills, commands, and best practices. It teaches Claude how to build with Plasma effectively.
 
-1. Download `plasma-plugin.zip` from the [releases page](https://github.com/hello-plasma/claude-components/releases).
+1. Download `plasma-plugin-1.0.0.zip` from the [Plasma Plugin releases page](https://github.com/hello-plasma/claude-components/releases/tag/plugin-v1.0.0).
 2. Open **Claude Desktop**.
 3. Go to **Settings**.
 4. Look for the **Capabilities** section.
