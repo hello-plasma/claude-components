@@ -2,7 +2,6 @@
 name: plasma
 description: Event-sourced dynamic UI system for AI-generated interactive interfaces with HTML/CSS/JS
 user-invocable: true
-command-dispatch: true
 ---
 
 # PLASMA — Event-Sourced Dynamic UI System
