@@ -2,13 +2,13 @@
   <img src="imgs/plasma-icon.png" width="200" alt="PLASMA">
 </p>
 
-# PLASMA
+# PLASMA for Claude
 
-**Programmable Layer for Adaptive Synthetic Media & Applications**
+**PLASMA** (_Programmable Layer for Adaptive Synthetic Media & Applications_) defines a new approach to software development where an agent dynamically generates applications based on the state of the conversation with the user and the data it can access.
 
-PLASMA defines a new approach to software development where an agent dynamically generates applications based on the state of the conversation with the user and the data it can access. The agent writes the application as you talk to it. Every change is a mutation, saved and replayable. The interface isn't designed in advance. It emerges from what you need right now, and evolves as the conversation continues.
+The agent writes the application as you talk to it. Every change is a mutation, saved and replayable. The interface isn't designed in advance. It emerges from what you need right now, and evolves as the conversation continues. The agent can also detect user actions on the application and dynamically generate new mutations that deliver functionality in response.
 
-PLASMA is a system that lets Claude generate and control fully interactive web applications rendered directly on your macOS desktop, in real time.
+PLASMA for Claude is a system that lets Claude Desktop, Claude Code, and Cowork generate and control fully interactive web applications rendered directly on your macOS desktop, in real time.
 
 For full documentation visit **[helloplasma.org](https://helloplasma.org)**.
 
@@ -19,8 +19,8 @@ It is made up of three components that work together:
 | Component | What it is | What it does |
 |-----------|-----------|-------------|
 | **[Plasma Surface](plasma-surface/)** | A native macOS menubar app | Renders the HTML/CSS/JS interfaces that Claude creates, and captures your interactions (clicks, inputs, form submissions) |
-| **[Plasma MCPB](plasma-connector/)** | An MCP server bundle (extension) | Opens a bidirectional communication channel between Claude and the Surface app via WebSocket |
-| **[Plasma Plugin](plasma-plugin/)** | A Claude plugin (.plugin file) | Teaches Claude how to use the MCPB tools effectively, includes skills, best practices, and slash commands |
+| **[Plasma MCPB](plasma-connector/)** | An MCP server bundle (extension .mcpb) | Opens a bidirectional communication channel between Claude and the Surface app via WebSocket |
+| **[Plasma Plugin](plasma-plugin/)** | A Claude plugin (zip file) | Teaches Claude how to use the MCPB tools effectively, includes skills, best practices, and slash commands |
 
 In short: the Plugin provides the brain, the MCPB provides the bridge, and the Surface provides the screen.
 
@@ -86,6 +86,10 @@ After installing all three components, run this command in a Claude conversation
 ```
 
 Claude will check the connection to the Surface and confirm everything is working.
+
+### What can you build?
+
+Check out the [tutorial](https://helloplasma.org/tutorial) to see what's possible.
 
 ## Architecture
 
