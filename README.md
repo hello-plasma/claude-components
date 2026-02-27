@@ -68,11 +68,12 @@ The Plugin is a zip file containing skills, commands, and best practices. It tea
 
 1. Download `plasma-plugin-1.0.0.zip` from the [Plasma Plugin releases page](https://github.com/hello-plasma/claude-components/releases/tag/plugin-v1.0.0).
 2. Open **Claude Desktop**.
-3. Go to **Settings**.
-4. Look for the **Capabilities** section.
-5. Click on **Skills** / **Go to Customize**.
-6. Click the **+** icon, then select **Upload Skill**.
-7. Drag and drop the `.zip` file into the upload window.
+3. Click the **+** button below the chat input box.
+4. Select **Plugins**. Click **Add plugin** and select the `.zip` file you downloaded.
+
+<p align="center">
+  <img src="imgs/plugin_installation.png" width="600" alt="Plugin installation via the + button">
+</p>
 
 Claude will add the plugin and its skills will be available immediately.
 
@@ -87,7 +88,7 @@ Once installed, you'll have access to these slash commands:
 
 ### Step 4: Verify
 
-After installing all three components, run this command in a Claude conversation:
+After installing all three components, restart Claude Desktop to make sure all tools and plugins are loaded correctly. Then run this command in a new conversation/cowork:
 
 ```
 /plasma:start
