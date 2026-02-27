@@ -58,6 +58,10 @@ The MCPB (MCP Bundle) is what gives Claude the actual tools to communicate with 
 4. Look for the **Drag .MCPB or .DXT files here to install** section.
 5. Drag and drop the `.mcpb` file into the settings window, or use the "Add" button to browse and select it.
 
+<p align="center">
+  <img src="imgs/mcpb_installation.png" width="600" alt="MCPB installation via Settings > Extensions">
+</p>
+
 Claude Desktop will register the extension and make its tools available.
 
 Once installed, Claude gets access to tools like `dynamic_ui_render`, `plasma_create`, `wait_for_ui_event`, and others. It won't know the best way to use them yet. That's what the Plugin is for.
