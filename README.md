@@ -73,11 +73,15 @@ Once installed, you'll have access to these slash commands:
 | `/plasma:load` | Load a previously saved app |
 | `/plasma:list` | See all your saved apps |
 
-### Step 4 — Go
+### Step 4 — Verify
+
+After installing all three components, run this command in a Claude conversation:
 
 ```
 /plasma:start
 ```
+
+Claude will check the connection to the Surface and confirm everything is working.
 
 ## Architecture
 
