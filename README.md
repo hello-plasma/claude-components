@@ -6,7 +6,13 @@
 
 **PLASMA** (_Programmable Layer for Adaptive Synthetic Media & Applications_) defines a new approach to software development where an agent dynamically generates applications based on the state of the conversation with the user and the data it can access.
 
-The agent writes the application as you talk to it. Every change is a mutation, saved and replayable. The interface isn't designed in advance. It emerges from what you need right now, and evolves as the conversation continues. The agent can also detect user actions on the application and dynamically generate new mutations that deliver functionality in response.
+The agent writes the application as you talk to it. Not from a template: it generates the actual HTML, CSS, and JavaScript on the fly based on what you need.
+
+The application is not static once generated. There is a feedback loop: every user action (a click, a form submission, a selection) flows back to the agent carrying full context, not just "button clicked" but the current form state, the selected values, whatever is relevant. The agent perceives what the user did, reasons about it, and mutates the application in response. The app is alive. It transforms with every interaction.
+
+There are no predefined components. The agent has access to the full browser runtime: DOM, Canvas, WebGL, Three.js, D3, fragment shaders, anything you can load from a CDN. If the browser can run it, the agent can build it.
+
+Every mutation is saved and numbered. The whole history is replayable, forkable, and persists across sessions. Event sourcing, but applied to the UI layer.
 
 PLASMA for Claude is a system that lets Claude Desktop, Claude Code, and Cowork generate and control fully interactive web applications rendered directly on your macOS desktop, in real time.
 
