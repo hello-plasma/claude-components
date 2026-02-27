@@ -7,6 +7,7 @@ final class StatusBarController {
     private var statusItem: NSStatusItem
     private let appState: AppState
     private var plasmaWindow: PlasmaWindow?
+    private let aboutWindow = AboutWindow()
 
     init(appState: AppState) {
         self.appState = appState
@@ -76,6 +77,16 @@ final class StatusBarController {
 
         menu.addItem(NSMenuItem.separator())
 
+        let aboutItem = NSMenuItem(
+            title: "About Plasma Surface",
+            action: #selector(aboutAction),
+            keyEquivalent: ""
+        )
+        aboutItem.target = self
+        menu.addItem(aboutItem)
+
+        menu.addItem(NSMenuItem.separator())
+
         let quitItem = NSMenuItem(
             title: "Quit Plasma Surface",
             action: #selector(quitAction),
@@ -92,6 +103,10 @@ final class StatusBarController {
 
     @objc private func toggleWindowAction() {
         toggleWindow()
+    }
+
+    @objc private func aboutAction() {
+        aboutWindow.show()
     }
 
     @objc private func quitAction() {
