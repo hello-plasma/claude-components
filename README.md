@@ -26,9 +26,9 @@ It is made up of three components that work together:
 
 | Component | What it is | What it does |
 |-----------|-----------|-------------|
-| Plasma Surface | A native macOS menubar app | Renders the HTML/CSS/JS interfaces that Claude creates, and captures your interactions (clicks, inputs, form submissions) |
-| Plasma MCPB | An MCP server bundle (extension .mcpb) | Opens a bidirectional communication channel between Claude and the Surface app via WebSocket |
-| Plasma Plugin | A Claude plugin (zip file) | Teaches Claude how to use the MCPB tools effectively, includes skills, best practices, and slash commands |
+| **Plasma Surface** | A native macOS menubar app | Renders the HTML/CSS/JS interfaces that Claude creates, and captures your interactions (clicks, inputs, form submissions) |
+| **Plasma MCPB** | An MCP server bundle (extension .mcpb) | Opens a bidirectional communication channel between Claude and the Surface app via WebSocket |
+| **Plasma Plugin** | A Claude plugin (zip file) | Teaches Claude how to use the MCPB tools effectively, includes skills, best practices, and slash commands |
 
 In short: the Plugin provides the brain, the MCPB provides the bridge, and the Surface provides the screen.
 
