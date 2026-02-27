@@ -94,7 +94,7 @@ After installing all three components, restart Claude Desktop to make sure all t
 /plasma:start
 ```
 
-Claude will check the connection to the Surface and confirm everything is working.
+Claude will check the connection to the MCPB server and confirm everything is working. Make sure the Plasma Surface app is running, and don't worry if you see a message about the Surface not being active — that's normal during the initial setup.
 
 ### What now?
 
