@@ -73,7 +73,7 @@ Once installed, you'll have access to these slash commands:
 | `/plasma:load` | Load a previously saved app |
 | `/plasma:list` | See all your saved apps |
 
-### Step 4 — Verify
+### Step 4 — Verify & Go
 
 After installing all three components, run this command in a Claude conversation:
 
