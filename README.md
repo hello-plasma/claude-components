@@ -101,4 +101,4 @@ The sky is the limit. Imagine Claude pulling data through its connectors and dyn
 
 ## License
 
-Apache 2.0. See [LICENSE](plasma-plugin/LICENSE).
+MIT. See [LICENSE](plasma-plugin/LICENSE).
