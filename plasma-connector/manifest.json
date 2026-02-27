@@ -1,0 +1,89 @@
+{
+  "manifest_version": "0.3",
+  "name": "plasma",
+  "display_name": "PLASMA Dynamic UI",
+  "version": "1.0.0",
+  "description": "Render custom HTML/CSS/JS interfaces on your desktop. Event-sourced organisms with live mutations, screenshots, and JS queries.",
+  "long_description": "PLASMA gives Claude the ability to generate and control fully custom HTML/CSS/JS interfaces rendered in a native macOS window (Plasma Surface).\n\nFeatures:\n- Create persistent UI organisms with event sourcing\n- Incremental mutations without page reloads\n- Query runtime state from the UI\n- Screenshot the rendered surface\n- Load external libraries (Three.js, D3, Chart.js)\n- Full activity system for user interactions",
+  "author": {
+    "name": "Hera AL",
+    "url": "https://github.com/anthropics"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/anthropics",
+  "keywords": ["ui", "dynamic-ui", "html", "css", "javascript", "visualization", "forms", "dashboard"],
+  "server": {
+    "type": "node",
+    "entry_point": "server/dist/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/server/dist/index.js"],
+      "env": {
+        "PLASMA_ROOT": "${HOME}/.plasma",
+        "PLASMA_SURFACE_URL": "${user_config.surface_url}"
+      }
+    }
+  },
+  "tools": [
+    {
+      "name": "plasma_create",
+      "description": "Create a new PLASMA organism (UI application) with HTML/CSS/JS and interactive activities"
+    },
+    {
+      "name": "plasma_mutate",
+      "description": "Apply an incremental JavaScript mutation to an existing organism"
+    },
+    {
+      "name": "plasma_load",
+      "description": "Load a saved organism and render it on the Plasma Surface"
+    },
+    {
+      "name": "plasma_list",
+      "description": "List all saved organisms with metadata"
+    },
+    {
+      "name": "plasma_delete",
+      "description": "Delete an organism permanently"
+    },
+    {
+      "name": "plasma_screenshot",
+      "description": "Capture a PNG screenshot of the Plasma Surface"
+    },
+    {
+      "name": "dynamic_ui_render",
+      "description": "Render ad-hoc HTML/CSS/JS (no organism persistence)"
+    },
+    {
+      "name": "dynamic_ui_update",
+      "description": "Send incremental JS update without reloading"
+    },
+    {
+      "name": "dynamic_ui_query",
+      "description": "Execute JS in the surface and return the result"
+    },
+    {
+      "name": "dynamic_ui_clear",
+      "description": "Clear the Plasma Surface content"
+    },
+    {
+      "name": "wait_for_ui_event",
+      "description": "Block until user interacts with the UI, then return the event data (activityId, type, provided data)"
+    }
+  ],
+  "compatibility": {
+    "claude_desktop": ">=1.0.0",
+    "platforms": ["darwin"],
+    "runtimes": {
+      "node": ">=18.0.0"
+    }
+  },
+  "user_config": {
+    "surface_url": {
+      "type": "string",
+      "title": "Plasma Surface URL",
+      "description": "WebSocket URL of the Plasma Surface app (default: ws://localhost:9420)",
+      "required": false,
+      "default": "ws://localhost:9420"
+    }
+  }
+}

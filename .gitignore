@@ -1,0 +1,15 @@
+# macOS
+.DS_Store
+
+# Build artifacts
+plasma-surface/.build/
+plasma-connector/server/dist/
+plasma-connector/server/node_modules/
+
+# Packaged bundles (distributed via Releases)
+*.mcpb
+plasma-plugin.zip
+
+# Editor
+.vscode/
+*.swp

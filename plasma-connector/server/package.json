@@ -1,0 +1,22 @@
+{
+  "name": "@plasma-claude/connector",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "PLASMA MCP server for Claude — render custom HTML/CSS/JS interfaces",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "ws": "^8.18.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.13",
+    "@types/ws": "^8.18.1",
+    "typescript": "^5.9.3"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "plasma": {
+      "command": "node",
+      "args": ["./server/dist/index.js"],
+      "env": {
+        "PLASMA_ROOT": "${HOME}/.plasma",
+        "PLASMA_SURFACE_URL": "ws://localhost:9420"
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+# Source files (only dist/ is needed)
+server/src/
+server/tsconfig.json
+
+# Dev artifacts
+.claude-plugin/
+.mcp.json
+
+# Skills and commands (not part of MCPB runtime)
+skills/
+commands/
+
+# Build artifacts
+*.tsbuildinfo

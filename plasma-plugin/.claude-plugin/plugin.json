@@ -1,0 +1,8 @@
+{
+  "name": "plasma",
+  "version": "1.0.0",
+  "description": "PLASMA Dynamic UI — render custom HTML/CSS/JS interfaces on your desktop. Build interactive forms, dashboards, visualizations, and apps with event sourcing and live mutations.",
+  "author": {
+    "name": "Hera AL"
+  }
+}
