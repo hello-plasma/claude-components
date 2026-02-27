@@ -1,5 +1,6 @@
 # macOS
 .DS_Store
+._*
 
 # Build artifacts
 plasma-surface/.build/
@@ -9,6 +10,9 @@ plasma-connector/server/node_modules/
 # Packaged bundles (distributed via Releases)
 *.mcpb
 plasma-plugin.zip
+plasma-plugin-*.zip
+makezip.sh
+makemcpb.sh
 
 # Editor
 .vscode/
