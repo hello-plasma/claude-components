@@ -14,6 +14,9 @@ plasma-plugin-*.zip
 makezip.sh
 makemcpb.sh
 
+# Internal notes
+signapp.txt
+
 # Editor
 .vscode/
 *.swp

@@ -8,19 +8,25 @@ final class StatusBarController {
     private let appState: AppState
     private var plasmaWindow: PlasmaWindow?
     private let aboutWindow = AboutWindow()
+    private var settingsWindow: SettingsWindow?
 
     init(appState: AppState) {
         self.appState = appState
 
-        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
+        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
 
         if let button = statusItem.button {
             let icon = Self.loadMenubarIcon()
             button.image = icon
+            // Text fallback if icon is nil or fails to render
+            if button.image == nil {
+                button.title = "⬡"
+            }
             button.action = #selector(statusBarAction(_:))
             button.target = self
             button.sendAction(on: [.leftMouseUp, .rightMouseUp])
         }
+        statusItem.isVisible = true
 
         // Wire window show callback
         appState.onShowWindow = { [weak self] in
@@ -86,6 +92,14 @@ final class StatusBarController {
         aboutItem.target = self
         menu.addItem(aboutItem)
 
+        let settingsItem = NSMenuItem(
+            title: "Settings...",
+            action: #selector(settingsAction),
+            keyEquivalent: ","
+        )
+        settingsItem.target = self
+        menu.addItem(settingsItem)
+
         menu.addItem(NSMenuItem.separator())
 
         let quitItem = NSMenuItem(
@@ -106,38 +120,82 @@ final class StatusBarController {
         toggleWindow()
     }
 
-    /// Load menubar icon from app bundle Resources or SPM Bundle.module.
+    /// Load menubar icon from app bundle Resources or fallback.
     private static func loadMenubarIcon() -> NSImage {
-        // Try app bundle Resources first
-        let bundles = [Bundle.main] + (Bundle.allBundles.filter { $0.bundlePath.contains("PlasmaSurface") })
-        for bundle in bundles {
-            if let url = bundle.url(forResource: "menubar-icon", withExtension: "png"),
-               let img = NSImage(contentsOf: url) {
-                img.isTemplate = true
-                img.size = NSSize(width: 18, height: 18)
-                return img
-            }
-        }
-        // Try relative to executable
-        let execURL = Bundle.main.executableURL?.deletingLastPathComponent()
-        if let execURL {
-            let resourceURL = execURL.deletingLastPathComponent().appendingPathComponent("Resources/menubar-icon.png")
-            if let img = NSImage(contentsOf: resourceURL) {
-                img.isTemplate = true
-                img.size = NSSize(width: 18, height: 18)
-                return img
-            }
+        if let url = Self.resourceURL(name: "menubar-icon", ext: "png"),
+           let img = NSImage(contentsOf: url) {
+            img.isTemplate = true
+            img.size = NSSize(width: 18, height: 18)
+            return img
         }
         // Fallback SF Symbol
-        let fallback = NSImage(systemSymbolName: "bolt.fill", accessibilityDescription: "Plasma Surface")!
-        return fallback
+        return NSImage(systemSymbolName: "bolt.fill", accessibilityDescription: "Plasma Surface")!
+    }
+
+    /// Find a resource file searching multiple locations.
+    static func resourceURL(name: String, ext: String) -> URL? {
+        let filename = "\(name).\(ext)"
+
+        // 1. Bundle.main resource lookup
+        if let url = Bundle.main.url(forResource: name, withExtension: ext) {
+            return url
+        }
+
+        // 2. Bundle.main.resourceURL directory
+        if let resourceDir = Bundle.main.resourceURL {
+            let candidate = resourceDir.appendingPathComponent(filename)
+            if FileManager.default.fileExists(atPath: candidate.path) {
+                return candidate
+            }
+        }
+
+        // 3. Executable-relative: Contents/MacOS/../Resources/
+        if let execURL = Bundle.main.executableURL {
+            let resourcesDir = execURL
+                .deletingLastPathComponent()
+                .deletingLastPathComponent()
+                .appendingPathComponent("Resources")
+            let candidate = resourcesDir.appendingPathComponent(filename)
+            if FileManager.default.fileExists(atPath: candidate.path) {
+                return candidate
+            }
+        }
+
+        // 4. Process path (handles App Translocation)
+        let processPath = ProcessInfo.processInfo.arguments[0]
+        let processURL = URL(fileURLWithPath: processPath)
+        let resourcesDir = processURL
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+            .appendingPathComponent("Resources")
+        let candidate = resourcesDir.appendingPathComponent(filename)
+        if FileManager.default.fileExists(atPath: candidate.path) {
+            return candidate
+        }
+
+        return nil
     }
 
     @objc private func aboutAction() {
-        aboutWindow.show()
+        showAbout()
+    }
+
+    @objc private func settingsAction() {
+        showSettings()
     }
 
     @objc private func quitAction() {
         NSApp.terminate(nil)
+    }
+
+    func showAbout() {
+        aboutWindow.show()
+    }
+
+    func showSettings() {
+        if settingsWindow == nil {
+            settingsWindow = SettingsWindow(appState: appState)
+        }
+        settingsWindow?.show()
     }
 }

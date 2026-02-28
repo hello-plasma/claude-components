@@ -6,7 +6,7 @@ import AppKit
 @MainActor
 final class AppState {
     let plasmaState = PlasmaState()
-    let wsServer = WebSocketServer(port: 9420)
+    let wsServer: WebSocketServer
 
     /// Whether the plasma window is currently visible.
     var windowVisible = false
@@ -14,8 +14,35 @@ final class AppState {
     /// Number of connected clients.
     var clientCount: Int { wsServer.clientCount }
 
+    /// Current host the server is bound to.
+    var currentHost: String { wsServer.host }
+
+    /// Current port the server is listening on.
+    var currentPort: UInt16 { wsServer.port }
+
     /// Callback invoked when the window should open.
     var onShowWindow: (() -> Void)?
+
+    init() {
+        let host = UserDefaults.standard.string(forKey: "wsHost") ?? "localhost"
+        let port = UInt16(UserDefaults.standard.integer(forKey: "wsPort"))
+        self.wsServer = WebSocketServer(host: host, port: port > 0 ? port : 9420)
+    }
+
+    /// Restart the server on a new host/port. Saves to UserDefaults only on success.
+    /// Calls completion on main queue with `true` if the server started, `false` if it rolled back.
+    func restartServer(host: String, port: UInt16, completion: ((Bool) -> Void)? = nil) {
+        wsServer.restart(host: host, port: port) { success in
+            if success {
+                UserDefaults.standard.set(host, forKey: "wsHost")
+                UserDefaults.standard.set(Int(port), forKey: "wsPort")
+                print("[PlasmaSurface] Restarted — listening on ws://\(host):\(port)")
+            } else {
+                print("[PlasmaSurface] Restart failed for ws://\(host):\(port) — rolled back")
+            }
+            completion?(success)
+        }
+    }
 
     func start() {
         // PlasmaState → WS: route actions back to connector
@@ -58,7 +85,7 @@ final class AppState {
 
         // Start WebSocket server
         wsServer.start()
-        print("[PlasmaSurface] Started — listening on ws://localhost:9420")
+        print("[PlasmaSurface] Started — listening on ws://\(wsServer.host):\(wsServer.port)")
     }
 
     private func handleMessage(type: String, json: [String: Any]) {

@@ -3,7 +3,8 @@ import Network
 
 /// WebSocket server using NWListener, bound to localhost only.
 final class WebSocketServer: @unchecked Sendable {
-    private let port: UInt16
+    private(set) var host: String
+    private(set) var port: UInt16
     private var listener: NWListener?
     private var connections: [UUID: NWConnection] = [:]
     private let queue = DispatchQueue(label: "plasma.ws.server", qos: .userInitiated)
@@ -21,19 +22,50 @@ final class WebSocketServer: @unchecked Sendable {
         return connections.count
     }
 
-    init(port: UInt16) {
+    init(host: String = "localhost", port: UInt16 = 9420) {
+        self.host = host
         self.port = port
     }
 
-    func start() {
+    /// Stop, reconfigure, and restart the server on a new host/port.
+    /// Calls completion on main queue with `true` on success, `false` on failure (rolling back).
+    func restart(host: String, port: UInt16, completion: ((Bool) -> Void)? = nil) {
+        let previousHost = self.host
+        let previousPort = self.port
+        stop()
+        self.host = host
+        self.port = port
+        start { [weak self] success in
+            if !success {
+                // Rollback to previous config
+                self?.stop()
+                self?.host = previousHost
+                self?.port = previousPort
+                self?.start()
+            }
+            DispatchQueue.main.async {
+                completion?(success)
+            }
+        }
+    }
+
+    func start(completion: ((Bool) -> Void)? = nil) {
         let params = NWParameters.tcp
         let wsOptions = NWProtocolWebSocket.Options()
         wsOptions.autoReplyPing = true
         params.defaultProtocolStack.applicationProtocols.insert(wsOptions, at: 0)
 
-        // Bind to localhost only
+        // Bind to configured host
+        let nwHost: NWEndpoint.Host
+        if host == "localhost" || host == "127.0.0.1" {
+            nwHost = NWEndpoint.Host("127.0.0.1")
+        } else if host == "0.0.0.0" {
+            nwHost = NWEndpoint.Host("0.0.0.0")
+        } else {
+            nwHost = NWEndpoint.Host(host)
+        }
         params.requiredLocalEndpoint = NWEndpoint.hostPort(
-            host: NWEndpoint.Host("127.0.0.1"),
+            host: nwHost,
             port: NWEndpoint.Port(rawValue: port)!
         )
 
@@ -41,19 +73,30 @@ final class WebSocketServer: @unchecked Sendable {
             listener = try NWListener(using: params)
         } catch {
             print("[WebSocket] Failed to create listener: \(error)")
+            completion?(false)
             return
         }
+
+        // Track whether completion has already fired (only fire once)
+        var completionFired = false
+        let fireLock = NSLock()
 
         listener?.stateUpdateHandler = { [weak self] state in
             switch state {
             case .ready:
-                print("[WebSocket] Listening on ws://localhost:\(self?.port ?? 0)")
+                print("[WebSocket] Listening on ws://\(self?.host ?? "?"):\(self?.port ?? 0)")
+                fireLock.lock()
+                let shouldFire = !completionFired
+                completionFired = true
+                fireLock.unlock()
+                if shouldFire { completion?(true) }
             case .failed(let error):
                 print("[WebSocket] Listener failed: \(error)")
-                // Try to restart after a short delay
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    self?.start()
-                }
+                fireLock.lock()
+                let shouldFire = !completionFired
+                completionFired = true
+                fireLock.unlock()
+                if shouldFire { completion?(false) }
             case .cancelled:
                 print("[WebSocket] Listener cancelled")
             default:
@@ -70,8 +113,10 @@ final class WebSocketServer: @unchecked Sendable {
 
     func stop() {
         listener?.cancel()
+        listener = nil
         lock.lock()
         let conns = connections
+        connections.removeAll()
         lock.unlock()
         for (_, conn) in conns {
             conn.cancel()
