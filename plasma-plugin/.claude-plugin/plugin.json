@@ -1,8 +1,8 @@
 {
   "name": "plasma",
   "version": "1.0.0",
-  "description": "PLASMA Dynamic UI — render custom HTML/CSS/JS interfaces on your desktop. Build interactive forms, dashboards, visualizations, and apps with event sourcing and live mutations.",
+  "description": "PLASMA — agent-driven dynamic application generation. Claude builds fully interactive web apps on your desktop in real time, mutating them in response to every user action. Event-sourced, persistent, and powered by the full browser runtime.",
   "author": {
-    "name": "Hera AL"
+    "name": "Lorenzo Toscano"
   }
 }

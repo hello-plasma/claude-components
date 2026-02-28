@@ -3,15 +3,15 @@
   "name": "plasma",
   "display_name": "PLASMA Dynamic UI",
   "version": "1.0.0",
-  "description": "Render custom HTML/CSS/JS interfaces on your desktop. Event-sourced organisms with live mutations, screenshots, and JS queries.",
-  "long_description": "PLASMA gives Claude the ability to generate and control fully custom HTML/CSS/JS interfaces rendered in a native macOS window (Plasma Surface).\n\nFeatures:\n- Create persistent UI organisms with event sourcing\n- Incremental mutations without page reloads\n- Query runtime state from the UI\n- Screenshot the rendered surface\n- Load external libraries (Three.js, D3, Chart.js)\n- Full activity system for user interactions",
+  "description": "Agent-driven dynamic application generation. Claude builds and controls fully interactive web apps on your desktop in real time, mutating them in response to every user action.",
+  "long_description": "PLASMA (Programmable Layer for Adaptive Synthetic Media & Applications) defines a new approach to software development where Claude dynamically generates applications based on the conversation and available data.\n\nThe agent writes the application as you talk to it — not from a template, but generating actual HTML, CSS, and JavaScript on the fly. Every user action (clicks, form submissions, selections) flows back to Claude with full context, and the agent mutates the application in response. The app is alive.\n\nFeatures:\n- Agent-generated interactive applications with real-time mutation\n- Event-sourced organisms: every mutation is saved, numbered, replayable, and forkable\n- Full browser runtime: DOM, Canvas, WebGL, Three.js, D3, fragment shaders, any CDN library\n- Bidirectional feedback loop between user interactions and agent reasoning\n- Persistent applications across sessions\n- Screenshots and runtime state queries",
   "author": {
-    "name": "Hera AL",
-    "url": "https://github.com/anthropics"
+    "name": "Lorenzo Toscano",
+    "url": "https://github.com/hello-plasma/claude-components"
   },
   "license": "MIT",
-  "homepage": "https://github.com/anthropics",
-  "keywords": ["ui", "dynamic-ui", "html", "css", "javascript", "visualization", "forms", "dashboard"],
+  "homepage": "https://github.com/hello-plasma/claude-components",
+  "keywords": ["agent-driven-ui", "dynamic-applications", "event-sourcing", "real-time-mutation", "interactive", "generative-ui", "webgl", "visualization", "forms", "dashboard"],
   "server": {
     "type": "node",
     "entry_point": "server/dist/index.js",
