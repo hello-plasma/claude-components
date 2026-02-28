@@ -42,6 +42,10 @@ The Surface is a lightweight menubar application for macOS.
 2. Move the app to your Applications folder.
 3. Launch it. You'll see a small icon appear in your macOS menu bar.
 
+<p align="center">
+  <img src="imgs/surface_menubar.png" width="400" alt="Plasma Surface in the macOS menubar">
+</p>
+
 That's it. The Surface is now listening on `ws://localhost:9420` and waiting for content.
 
 > **Note:** The Surface only accepts connections from localhost, so no network exposure is involved.
