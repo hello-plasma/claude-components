@@ -86,6 +86,9 @@ final class PlasmaState {
         if let ch = json["channel"] as? String { originChannel = ch }
         if let cid = json["chatId"] as? String { originChatId = cid }
 
+        // Hide the "Sending..." indicator
+        webView?.evaluateJavaScript("if(window.__plasmaHideSending) window.__plasmaHideSending();")
+
         guard let js = json["js"] as? String, !js.isEmpty else { return }
         webView?.evaluateJavaScript(js) { _, error in
             if let error {
@@ -156,10 +159,33 @@ final class PlasmaState {
               padding: 16px;
               overflow-x: hidden;
             }
+            #plasma-sending {
+              position: fixed;
+              top: 12px;
+              right: 12px;
+              font-size: 11px;
+              color: #aaa;
+              background: rgba(255,255,255,0.08);
+              backdrop-filter: blur(8px);
+              -webkit-backdrop-filter: blur(8px);
+              padding: 6px 14px;
+              border-radius: 6px;
+              border: 1px solid rgba(255,255,255,0.06);
+              opacity: 0;
+              transform: translateY(-4px);
+              transition: opacity 0.25s ease, transform 0.25s ease;
+              pointer-events: none;
+              z-index: 99999;
+            }
+            #plasma-sending.visible {
+              opacity: 1;
+              transform: translateY(0);
+            }
             \(css)
           </style>
         </head>
         <body>
+          <div id="plasma-sending">Sending\u{2026}</div>
           \(html)
           <script>
           (function() {
@@ -180,9 +206,28 @@ final class PlasmaState {
 
             var activities = \(activitiesJSON);
 
+            // Sending toast
+            var sendingEl = document.getElementById('plasma-sending');
+            var sendingTimer = null;
+            window.__plasmaShowSending = function() {
+              if (!sendingEl) return;
+              if (sendingTimer) clearTimeout(sendingTimer);
+              sendingEl.classList.add('visible');
+              sendingTimer = setTimeout(function() {
+                sendingEl.classList.remove('visible');
+                sendingTimer = null;
+              }, 5000);
+            };
+            window.__plasmaHideSending = function() {
+              if (!sendingEl) return;
+              if (sendingTimer) { clearTimeout(sendingTimer); sendingTimer = null; }
+              sendingEl.classList.remove('visible');
+            };
+
             // Global action sender — defined early so inline handlers can use it
             window.sendAction = function(activityId, type, data) {
               console.log('[Plasma] sendAction:', activityId, type);
+              window.__plasmaShowSending();
               try {
                 window.webkit.messageHandlers.heraAction.postMessage(JSON.stringify({
                   activityId: activityId,
